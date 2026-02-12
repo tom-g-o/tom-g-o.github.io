@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investigating Suspicious Logins</title>
+
+<style>
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color:#0f172a;
+    color:#e2e8f0;
+    max-width:900px;
+    margin:auto;
+    padding:40px;
+}
+
+h1,h2{
+    color:#38bdf8;
+}
+
+code{
+    background-color:#020617;
+    padding:4px 6px;
+    border-radius:5px;
+}
+
+pre{
+    background-color:#020617;
+    padding:15px;
+    border-radius:10px;
+    overflow:auto;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Investigating Suspicious Login Activity</h1>
+<p><i>Example SOC Investigation Walkthrough</i></p>
+
+<h2>Scenario</h2>
+<p>
+A user generated multiple authentication alerts during non-working hours.
+The SIEM triggered a suspicious login alert due to abnormal behavior.
+</p>
+
+<h2>Initial Observations</h2>
+<ul>
+<li>Login time: 03:12 AM</li>
+<li>User normally logs in between 09:00–18:00</li>
+<li>Multiple failed logins followed by a success</li>
+<li>Source IP from a different geographic region</li>
+</ul>
+
+<h2>Log Analysis</h2>
+
+<p>Relevant Windows Event:</p>
+<pre>
+Event ID: 4625 — Failed Login
+Event ID: 4624 — Successful Login
+Logon Type: 10 (Remote Interactive / RDP)
+</pre>
+
+<h2>Investigation Steps</h2>
+<ol>
+<li>Verified if the user was working remotely</li>
+<li>Checked IP reputation</li>
+<li>Reviewed additional activity post-login</li>
+<li>Checked for lateral movement indicators</li>
+</ol>
+
+<h2>Findings</h2>
+<p>
+The IP address was associated with a VPN exit node. After contacting the user,
+the activity was confirmed as unauthorized.
+</p>
+
+<h2>Response</h2>
+<ul>
+<li>Account disabled</li>
+<li>Password reset enforced</li>
+<li>Host isolated</li>
+<li>Escalated to incident response team</li>
+</ul>
+
+<h2>Conclusion</h2>
+<p>
+This incident highlighted the importance of monitoring authentication patterns
+and combining SIEM alerts with behavioral context.
+</p>
+
+</body>
+</html>
